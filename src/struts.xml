@@ -25,9 +25,25 @@
 				exception="java.lang.RuntimeException" />
 		</global-exception-mappings>
 
-		<action name="" class="springUserAction" method="homePage">
+		<action name="" class="loginAction" method="homePage">
 			<result>HomePage</result>
-		</action> 
+		</action>
+		
+		<action name="admin" class="loginAction" method="adminPage">
+            <result name="success">AdminPage</result>
+        </action>
+        
+        <action name="welcome" class="loginAction" method="welcomePage">
+            <result name="success">WelcomePage</result>
+        </action>
+        
+        <action name="login">  
+            <result>LoginPage</result>  
+        </action>
+        <action name="403" class="loginAction" method="accessDeniedPage">  
+            <result name="success">AccessDeniedPage</result>  
+        </action>	
+        	
 
 	</package>
 

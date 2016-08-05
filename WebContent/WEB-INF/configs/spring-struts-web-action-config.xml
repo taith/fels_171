@@ -9,5 +9,8 @@
 		scope="prototype">
 		<property name="userBusiness" ref="UserBusiness" />
 	</bean>
+	<bean id="loginAction" class="framgiavn.project01.web.action.LoginAction"
+		scope="prototype">
+	</bean>
 	
 </beans>

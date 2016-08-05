@@ -47,9 +47,4 @@ public class UserAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String homePage() {
-		
-		return SUCCESS;
-	}
-
 }

@@ -35,4 +35,36 @@
 		</put-list-attribute>
 	</definition>
 	
+	<definition name="AdminPage" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/authentication/admin.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="LoginPage" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/authentication/login.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="WelcomePage" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/authentication/welcome.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	
+	<definition name="AccessDeniedPage" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/authentication/accessDenied.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	
 </tiles-definitions>
