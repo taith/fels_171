@@ -19,7 +19,10 @@
 		</property>
 
 		<property name="password" type="java.lang.String">
-			<column name="password" length="16" />
+			<column name="password" length="60" />
+		</property>
+		<property name="role" type="java.lang.String">
+			<column name="role" length="15" />
 		</property>
 
 		<property name="avatar" type="java.lang.String">
@@ -43,6 +46,12 @@
 		select user
 		from User user
 		where user.user_id = :user_id
+	</query>
+	
+	<query name="User.SelectUserByEmail">
+		select user
+		from User user
+		where user.email=:email
 	</query>
 
 </hibernate-mapping>

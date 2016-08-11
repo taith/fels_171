@@ -49,7 +49,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
 			query.setParameter("email", email);
 			return (User) query.uniqueResult();
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			log.error("get  email failed", re);
 			throw re;
 		}
 	}
