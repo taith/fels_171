@@ -3,9 +3,7 @@ package framgiavn.project01.web.business;
 import framgiavn.project01.web.model.User;
 
 public interface UserBusiness {
-	public User findByUserId(Integer user_id) throws Exception;
-
-	public User findByUsername(String username) throws Exception;
-	
-	public User findByEmail(String email) throws Exception;
+	public User findByUserId(User user);
+	public User findByEmail(User user);
+	public User signUp(User user);
 }

@@ -15,11 +15,12 @@ public class User implements Serializable {
 	private String name;
 	private String avatar;
 	private String password;
+	private String role;
 	private boolean enabled;
 	private Date created_at;
 	private Date updated_at;
 	
-	
+	private String passwordConfirm;
 	
 	public int getUser_id() {
 		return user_id;
@@ -70,8 +71,16 @@ public class User implements Serializable {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	
-	
-
-
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 }
