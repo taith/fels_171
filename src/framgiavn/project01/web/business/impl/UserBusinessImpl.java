@@ -17,33 +17,33 @@ public class UserBusinessImpl implements UserBusiness {
 	}
 
 	@Override
-	public User findByUserId(Integer user_id) throws Exception {
+	public User findByUserId(User user) {
 		try {
-			return getUserDAO().findByUserId(user_id);
+			return userDAO.findById(user.getUser_id());
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
 		}
+		return null;
 	}
 
 	@Override
-	public User findByUsername(String username) throws Exception {
+	public User signUp(User user) {
 		try {
-			return getUserDAO().findByUsername(username);
+			userDAO.save(user);
+			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
 		}
+		return null;
 	}
 
 	@Override
-	public User findByEmail(String email) throws Exception {
+	public User findByEmail(User user) {
 		try {
-			return getUserDAO().findByEmail(email);
+			return (User) userDAO.findByProperty("email", user.getEmail()).get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
 		}
+		return null;
 	}
-
 }

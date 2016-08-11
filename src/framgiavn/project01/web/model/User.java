@@ -20,7 +20,7 @@ public class User implements Serializable {
 	private Date created_at;
 	private Date updated_at;
 	
-	
+	private String passwordConfirm;
 	
 	public int getUser_id() {
 		return user_id;
@@ -77,9 +77,10 @@ public class User implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
-	
-
-
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 }

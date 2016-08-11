@@ -46,7 +46,7 @@ public class AccountDetails implements UserDetailsService {
 			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		try {
-			user = userDAO.findByEmail(email);
+			user = userDAO.findByProperty("email", email).get(0);
 			if(user == null)
 				throw new UsernameNotFoundException("User Not Found");
 		} catch (Exception e) {

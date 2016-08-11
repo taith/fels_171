@@ -12,4 +12,11 @@
 		<put-list-attribute name="css">
 		</put-list-attribute>
 	</definition>
+	<definition name="User.SignUp" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/user/user_signUp.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
 </tiles-definitions>

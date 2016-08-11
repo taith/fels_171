@@ -4,6 +4,7 @@
 	
 <a href="<s:url value="/user/findByUserId"/>1">Show</a>
 <a href="<s:url value="/user/findByUsername"/>">Find by name</a>
+<a href="<s:url value="/user/signup"/>">Sign Up</a>
 
 <sec:authorize access="isAuthenticated()">
 	${pageContext.request.userPrincipal.name}
