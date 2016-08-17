@@ -5,3 +5,5 @@
 	Welcome : ${pageContext.request.userPrincipal.name}<br>
 	<a href="j_spring_security_logout">Logout</a>
 </h2>
+<br/>
+<a href="user/profile">Profile</a>

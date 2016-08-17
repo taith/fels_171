@@ -4,6 +4,8 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.multipart.maxSize" value="1000000" />
 
 	<!-- Configure NameSpace for action web -->
 	<package name="User" namespace="/user" extends="default-web">
@@ -13,20 +15,32 @@
 			<result name="input">User.Info</result>
 			<result name="error">User.Info</result>
 		</action>
-
-		<action name="findByUsername*" class="springUserAction" method="findByUsername">
-			<param name="user.username">{1}</param>
-			<result name="success">User.Info</result>
-			<result name="error">User.Info</result>
+		<action name="profile" class="springUserAction" method="profile">
+			<result name="success">User.Profile</result>
 		</action>
-		
-		<!-- <action name="signup" class="springUserAction" method="signUpPage">
-			<result name="success">User.SignUp</result>
-			<result name="error">HomePage</result>
-		</action> -->
-		<action name="signup" class="springUserAction" method="signUp">
-			<result name="success">User.Info</result>
-			<result name="input">User.SignUp</result>
+		<action name="editprofile" class="springUserAction" method="editProfile">
+			<result name="success">User.EditProfile</result>
+		</action>
+		<action name="updateavatar" class="springUserAction" method="updateAvatar">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2097152</param>
+				<param name="allowedTypes">
+					image/png,image/jpeg,image/jpg,image/pjpeg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">User.Profile</result>
+			<result name="input">User.EditProfile</result>
+		</action>
+		<action name="changename" class="springUserAction" method="changeName">
+			<result name="success">User.Profile</result>
+			<result name="error">User.EditProfile</result>
+		</action>
+		<action name="changepassword" class="springUserAction" method="changePassword">
+			<result name="success" type="redirect">
+				<param name="location">/user/profile</param>
+			</result>
+			<result name="error">User.EditProfile</result>
 		</action>
 	</package>
 </struts>

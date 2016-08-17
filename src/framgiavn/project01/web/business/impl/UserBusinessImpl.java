@@ -1,5 +1,7 @@
 package framgiavn.project01.web.business.impl;
 
+import java.util.List;
+
 import framgiavn.project01.web.business.UserBusiness;
 import framgiavn.project01.web.dao.UserDAO;
 import framgiavn.project01.web.model.User;
@@ -46,4 +48,27 @@ public class UserBusinessImpl implements UserBusiness {
 		}
 		return null;
 	}
+
+	@Override
+	public List<User> findByEmail(String email) {
+		try {
+			return userDAO.findByProperty("email", email);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void upadte(User user) {
+		try {
+			userDAO.update(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

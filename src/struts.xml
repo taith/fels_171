@@ -28,22 +28,27 @@
 		<action name="" class="loginAction" method="homePage">
 			<result>HomePage</result>
 		</action>
-		
+
 		<action name="admin" class="loginAction" method="adminPage">
-            <result name="success">AdminPage</result>
-        </action>
-        
-        <action name="welcome" class="loginAction" method="welcomePage">
-            <result name="success">WelcomePage</result>
-        </action>
-        
-        <action name="login">  
-            <result>LoginPage</result>  
-        </action>
-        <action name="403" class="loginAction" method="accessDeniedPage">  
-            <result name="success">AccessDeniedPage</result>  
-        </action>	
-        	
+			<result name="success">AdminPage</result>
+		</action>
+
+		<action name="welcome" class="loginAction" method="welcomePage">
+			<result name="success">WelcomePage</result>
+		</action>
+
+		<action name="login">
+			<result>LoginPage</result>
+		</action>
+		<action name="signup" class="springUserAction" method="signUp">
+			<result name="success">User.Info</result>
+			<result name="input">User.SignUp</result>
+			<result name="error">User.SignUp</result>
+		</action>
+		<action name="403" class="loginAction" method="accessDeniedPage">
+			<result name="success">AccessDeniedPage</result>
+		</action>
+
 
 	</package>
 
