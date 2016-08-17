@@ -80,7 +80,7 @@
 		<!--start login-->
 		<tiles:insertAttribute name="header" />
 		<!--end login-->
-		<div id="container">
+		<div id="container" style="min-height: 400px;">
 			<tiles:insertAttribute name="body" />
 		</div>
 		<div id="footer">

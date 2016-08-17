@@ -4,7 +4,6 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-
 	<definition name="User.Info" extends="Default.Web">
 		<put-attribute name="body" value="/bodycontent/user/user_info.jsp" />
 		<put-list-attribute name="js">
@@ -14,6 +13,21 @@
 	</definition>
 	<definition name="User.SignUp" extends="Default.Web">
 		<put-attribute name="body" value="/bodycontent/user/user_signUp.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	<definition name="User.Profile" extends="Default.Web">
+		<put-attribute name="body" value="/bodycontent/user/user_profile.jsp" />
+		<put-list-attribute name="js">
+		</put-list-attribute>
+		<put-list-attribute name="css">
+		</put-list-attribute>
+	</definition>
+	<definition name="User.EditProfile" extends="Default.Web">
+		<put-attribute name="body"
+			value="/bodycontent/user/user_edit_profile.jsp" />
 		<put-list-attribute name="js">
 		</put-list-attribute>
 		<put-list-attribute name="css">
