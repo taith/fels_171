@@ -6,7 +6,16 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <sec:authorize access="isAuthenticated()">
-	${pageContext.request.userPrincipal.name}
-	<a href="<s:url value="/j_spring_security_logout"/>">Logout</a>
+	
+	  <div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+    	${pageContext.request.userPrincipal.name}
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="<s:url value="/user/editprofile"/>">Edit profile</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="<s:url value="/j_spring_security_logout"/>">Logout</a></li>
+    </ul>
+  </div>
 </sec:authorize>
 <hr/>

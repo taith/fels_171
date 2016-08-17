@@ -2,8 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
       <font color="red">
-        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>. <br/><br/>
-        Invalid email or password! Please retry!
+<%--         <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>. <br/><br/> --%>
+        <p class="bg-warning">Invalid email or password! Please retry!</p>
+        
       </font>
 </c:if>
 <!-- Form lognin -->

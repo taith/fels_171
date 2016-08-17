@@ -47,11 +47,5 @@
 		from User user
 		where user.user_id = :user_id
 	</query>
-	
-	<query name="User.SelectUserByEmail">
-		select user
-		from User user
-		where user.email=:email
-	</query>
 
 </hibernate-mapping>

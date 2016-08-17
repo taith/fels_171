@@ -2,10 +2,15 @@ package framgiavn.project01.web.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+
 import javax.mail.internet.NewsAddress;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import java.text.ParseException;
 
 import java.util.Date;
@@ -30,6 +35,15 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 
 	private UserBusiness userBusiness = null;
 	private User user = null;
+	private List<User> userAllList = new ArrayList<User>();
+
+	public List<User> getUserAllList() {
+		return userAllList;
+	}
+
+	public void setUserAllList(List<User> userAllList) {
+		this.userAllList = userAllList;
+	}
 
 	private String userImageFileName;
 	private HttpServletRequest servletRequest;
@@ -127,6 +141,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 
 				/* set password */
 				convertBcryptPassword(user.getPassword());
+				String password = user.getPassword();
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String hashedPassword = passwordEncoder.encode(password);
+				user.setPassword(hashedPassword);
 
 				/* set date */
 				Date date = new Date();
@@ -146,6 +164,26 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 			addActionError("Password mismatch");
 			return INPUT;
 		}
+		return ERROR;
+	}
+	
+	public String addNewUser() {
+		
+		if (Helpers.isExist(user)) {
+			
+			/* Check if email exist then add user */
+			if(Helpers.isEmpty(userBusiness.checkEmailExist(user))) {
+				userBusiness.addNewUser(user);
+				if (Helpers.isExist(user)) {
+					return SUCCESS;
+				}
+			} else {
+				addActionError("Email exist");
+				return ERROR;
+			}
+			
+		} else 
+			return INPUT; 
 		return ERROR;
 	}
 
@@ -170,7 +208,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 			File destFile = new File(filePath, fileName);
 			FileUtils.copyFile(userImage, destFile);
 			user.setAvatar("fileUpload/" + fileName);
-			userBusiness.upadte(user);
+			userBusiness.update(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			addActionError("Content type not allowed (only jpg, png, jpeg, pjpeg)");
@@ -186,7 +224,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 			return ERROR;
 		}
 		user.setName(newName);
-		userBusiness.upadte(user);
+		userBusiness.update(user);
 		return SUCCESS;
 	}
 
@@ -197,7 +235,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 		if (isMatch) {
 			if (newPassword.equals(confirmPassword)&&!newPassword.equals("")) {
 				user.setPassword(convertBcryptPassword(newPassword));
-				userBusiness.upadte(user);
+				userBusiness.update(user);
 				return SUCCESS;
 			}else
 			{
@@ -222,6 +260,41 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	}
 
 	public String homePage() {
+		return SUCCESS;
+	}
+	
+	public String userAllPage() {
+		userAllList = userBusiness.listAllUser();
+		
+		return SUCCESS;
+	}
+	
+	public String activeUser() {
+		userBusiness.activeUser(user);
+		return SUCCESS;
+	}
+	
+	public String deactiveUser() {
+		userBusiness.deactiveUser(user);
+		return SUCCESS;
+	}
+	
+	public String adminEditUser() throws Exception {
+
+		User userDB = userBusiness.findById(user.getUser_id(), false);
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		boolean isMatch = passwordEncoder.matches(user.getPassword(), userDB.getPassword());
+		if(isMatch) {
+			if (newPassword.equals(confirmPassword)) {
+				user.setRole(user.getRole());
+				user.setPassword(convertBcryptPassword(newPassword));
+				userBusiness.update(user);
+			} else 
+				addActionError("Password and confirm password not matches");
+		} else
+			addActionError("Wrong current password");
+		
 		return SUCCESS;
 	}
 }

@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import framgiavn.project01.web.ulti.Helpers;
+
 
 public class AccountDetails implements UserDetailsService {
 	
@@ -46,9 +48,11 @@ public class AccountDetails implements UserDetailsService {
 			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		try {
-			user = userDAO.findByProperty("email", email).get(0);
-			if(user == null)
-				throw new UsernameNotFoundException("User Not Found");
+			if(Helpers.isEmpty(userDAO.findByProperty("email", email)))
+				return null;			
+			else
+				user = userDAO.findByProperty("email", email).get(0);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
