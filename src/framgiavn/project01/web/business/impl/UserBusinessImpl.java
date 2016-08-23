@@ -1,6 +1,11 @@
 package framgiavn.project01.web.business.impl;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import framgiavn.project01.web.business.UserBusiness;
 import framgiavn.project01.web.dao.UserDAO;
@@ -59,10 +64,31 @@ public class UserBusinessImpl implements UserBusiness {
 		}
 		return null;
 	}
+	
+	public User addNewUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			/* Encode password */
+			String password = user.getPassword();
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(password);
+			user.setPassword(hashedPassword);
+			
+			/* Set create at and role for user */
+			user.setCreated_at(new Date());
+			user.setRole("ROLE_USER");
+			userDAO.save(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
-	public void upadte(User user) {
+	public void update(User user) {
 		try {
+			user.setUpdated_at(new Date());
 			userDAO.update(user);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -71,4 +97,77 @@ public class UserBusinessImpl implements UserBusiness {
 	}
 	
 	
+	public ArrayList<User> checkEmailExist(User user) {
+		// TODO Auto-generated method stub
+		try {
+			return (ArrayList<User>) userDAO.findByProperty("email", user.getEmail());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<User> listAllUser() {
+		// TODO Auto-generated method stub
+		try {
+			return userDAO.listAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User deleteUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			userDAO.delete(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	@Override
+	public User activeUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			User userDB = userDAO.findById(user.getUser_id(), true);
+			userDB.setUser_id(user.getUser_id());
+			userDB.setEnabled(true);
+			
+			userDAO.update(userDB);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User deactiveUser(User user) {
+		// TODO Auto-generated method stub
+		try {
+			User userDB = userDAO.findById(user.getUser_id(), true);
+			userDB.setUser_id(user.getUser_id());
+			userDB.setEnabled(false);
+			
+			userDAO.update(userDB);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User findById(Integer user_id, boolean lock) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.findById(user_id);
+	}
+
 }

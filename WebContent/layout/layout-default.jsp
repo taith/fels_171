@@ -7,7 +7,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
 <title>Test</title>
 <link type="image/x-icon" href="<web:img/>layout/marketing/favicon.png"
 	rel="icon" />
@@ -15,6 +14,10 @@
 <meta http-equiv="pragma" content="no-cache" />
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="expires" content="0" />
+<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <tiles:useAttribute id="list" name="default-css"
 	classname="java.util.List" />
 <c:forEach var="item" items="${list}">
@@ -80,7 +83,8 @@
 		<!--start login-->
 		<tiles:insertAttribute name="header" />
 		<!--end login-->
-		<div id="container" style="min-height: 400px;">
+
+		<div class="container">
 			<tiles:insertAttribute name="body" />
 		</div>
 		<div id="footer">

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- Configure NameSpace for action web -->
+	<package name="Admin" namespace="/admin" extends="default-web">
+		<action name="user" class="springUserAction" method="userAllPage">
+			<result name="success">User.All</result>
+			<result name="error">AdminPage</result>
+		</action>
+	</package>
+	<package name="Admin-User" namespace="/admin/user" extends="default-web">
+		<action name="new" class="springUserAction" method="addNewUser">
+			<result name="success">User.All</result>
+			<result name="input">User.New</result>
+			<result name="error">User.New</result>
+		</action>
+		<action name="delete*" class="springUserAction" method="deleteUser">
+			<result name="success" type="redirect">
+				<param name="location">/admin/user</param>
+			</result>
+			<result name="input">User.All</result>
+			<result name="error">User.New</result>
+		</action>
+		<action name="active*" class="springUserAction" method="activeUser">
+			<result name="success" type="redirect">
+				<param name="location">/admin/user</param>
+			</result>
+			<result name="input">User.All</result>
+			<result name="error">User.New</result>
+		</action>
+		<action name="deactive*" class="springUserAction" method="deactiveUser">
+			<result name="success" type="redirect">
+				<param name="location">/admin/user</param>
+			</result>
+			<result name="input">User.All</result>
+			<result name="error">User.New</result>
+		</action>
+		<action name="update" class="springUserAction" method="adminEditUser">
+			<result name="success">User.Info</result>
+			<result name="error">User.Info</result>
+		</action>
+	</package>
+</struts>
