@@ -95,8 +95,7 @@ public class UserBusinessImpl implements UserBusiness {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public ArrayList<User> checkEmailExist(User user) {
 		// TODO Auto-generated method stub
 		try {
@@ -169,5 +168,4 @@ public class UserBusinessImpl implements UserBusiness {
 		// TODO Auto-generated method stub
 		return userDAO.findById(user_id);
 	}
-
 }

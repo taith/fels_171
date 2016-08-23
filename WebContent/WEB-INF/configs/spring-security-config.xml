@@ -13,6 +13,7 @@
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/welcome" access="isAuthenticated()" />
 		<intercept-url pattern="/user/**" access="isAuthenticated()" />
+		<intercept-url pattern="/word/**" access="isAuthenticated()" />
 		
 		<!-- Access denied page -->
 		<access-denied-handler ref="myAccessDeniedHandler" />
