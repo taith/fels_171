@@ -5,6 +5,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<a href="<s:url value="/welcome"/>">Home Page</a>
 <sec:authorize access="isAuthenticated()">
 	
 	  <div class="dropdown">

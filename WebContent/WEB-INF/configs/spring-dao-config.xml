@@ -8,4 +8,19 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="WordDAO" class="framgiavn.project01.web.dao.impl.WordDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CategoryDAO" class="framgiavn.project01.web.dao.impl.CategoryDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="WordAnswerDAO" class="framgiavn.project01.web.dao.impl.WordAnswerDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 </beans>

@@ -10,7 +10,7 @@ public interface UserBusiness {
 	public User findByEmail(User user);
 	public List<User> findByEmail(String email);
 	public User signUp(User user);
-	
+
 	public User findById(Integer user_id, boolean lock) throws Exception;
 
 	public void update(User user);
@@ -26,5 +26,4 @@ public interface UserBusiness {
 	public User addNewUser(User user);
 
 	public ArrayList<User> checkEmailExist(User user);
-
 }

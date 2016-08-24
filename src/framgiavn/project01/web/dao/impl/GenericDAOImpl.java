@@ -113,5 +113,4 @@ public class GenericDAOImpl<E, Id extends Serializable> extends HibernateDaoSupp
 			throw re;
 		}
 	}
-
 }

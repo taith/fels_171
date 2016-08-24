@@ -2,7 +2,6 @@ package framgiavn.project01.web.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-
 import javax.mail.internet.NewsAddress;
 import javax.servlet.http.HttpServletRequest;
 
@@ -203,7 +202,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 		}
 		try {
 			user = getUserFromSession();
-			String fileName=user.getUser_id()+".png";
+			String fileName = user.getUser_id() + ".png";
 			String filePath = servletRequest.getSession().getServletContext().getRealPath("/") + "fileUpload";
 			File destFile = new File(filePath, fileName);
 			FileUtils.copyFile(userImage, destFile);
@@ -229,16 +228,15 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	}
 
 	public String changePassword() {
-		user=getUserFromSession();
+		user = getUserFromSession();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		boolean isMatch = passwordEncoder.matches(password, user.getPassword());
 		if (isMatch) {
-			if (newPassword.equals(confirmPassword)&&!newPassword.equals("")) {
+			if (newPassword.equals(confirmPassword) && !newPassword.equals("")) {
 				user.setPassword(convertBcryptPassword(newPassword));
 				userBusiness.update(user);
 				return SUCCESS;
-			}else
-			{
+			} else {
 				addActionError("New password mismatch");
 				return ERROR;
 			}
@@ -247,12 +245,12 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 		return ERROR;
 	}
 
-	public String convertBcryptPassword(String password){
+	public String convertBcryptPassword(String password) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(password);
 		return hashedPassword;
 	}
-	
+
 	public User getUserFromSession() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName(); // get logged in username

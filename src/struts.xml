@@ -55,4 +55,5 @@
 	<!-- ===== Include Web Module Configuration ===== -->
 	<include file="struts-user.xml" />
 	<include file="struts-admin.xml" />
+	<include file="struts-word.xml" />
 </struts>

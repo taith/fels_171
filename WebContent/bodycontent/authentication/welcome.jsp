@@ -7,3 +7,4 @@
 </h2>
 <br/>
 <a href="user/profile">Profile</a>
+<a href="<s:url value="/word/list"/>">Word list</a>

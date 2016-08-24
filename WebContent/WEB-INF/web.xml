@@ -49,6 +49,7 @@
 		<param-value>
         	/WEB-INF/configs/tiles-defs-default.xml
         	,/WEB-INF/configs/tiles-defs-user.xml
+        	,/WEB-INF/configs/tiles-defs-word.xml
         </param-value>
 	</context-param>
 	<!-- Define Tiles configuration files -->

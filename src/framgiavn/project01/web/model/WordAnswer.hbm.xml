@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="framgiavn.project01.web.model.WordAnswer" table="word_answers"
+		dynamic-insert="true" dynamic-update="true">
+		<id name="word_answer_id" type="java.lang.Integer">
+			<column name="word_answer_id" length="11" />
+			<generator class="identity" />
+		</id>
+
+		<property name="content" type="java.lang.String">
+			<column name="content" length="50" />
+		</property>
+
+		<many-to-one name="word" class="framgiavn.project01.web.model.Word"
+			fetch="select" lazy="false">
+			<column name="word_id" not-null="true" />
+		</many-to-one>
+
+		<property name="correct" type="java.lang.Integer">
+			<column name="correct" length="1" />
+		</property>
+
+		<property name="created_at" type="java.util.Date">
+			<column name="created_at" length="50" />
+		</property>
+
+		<property name="updated_at" type="java.util.Date">
+			<column name="updated_at" length="50" />
+		</property>
+	</class>
+</hibernate-mapping>

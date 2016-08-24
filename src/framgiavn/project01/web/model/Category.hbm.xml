@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="framgiavn.project01.web.model.Category" table="categorys"
+		dynamic-insert="true" dynamic-update="true">
+		<id name="category_id" type="java.lang.Integer">
+			<column name="category_id" length="20" />
+			<generator class="identity" />
+		</id>
+
+		<property name="name" type="java.lang.String">
+			<column name="name" length="30" />
+		</property>
+
+		<property name="created_at" type="java.util.Date">
+			<column name="created_at" length="50" />
+		</property>
+
+		<property name="updated_at" type="java.util.Date">
+			<column name="updated_at" length="50" />
+		</property>
+		<set name="category_word" table="words" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="category_id" not-null="true" />
+			</key>
+			<one-to-many class="framgiavn.project01.web.model.Word" />
+		</set>
+	</class>
+</hibernate-mapping>
