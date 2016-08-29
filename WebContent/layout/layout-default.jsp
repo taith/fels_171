@@ -79,6 +79,7 @@
 	<div id="web_formAways" style="display: none;"></div>
 	<div id="progress_loading_img"></div>
 	<s:hidden name="GMTLocal" id="GMTLocal" />
+	<div class="clear-fix" style="padding-top: 50px;"></div>
 	<div id="wrapper">
 		<!--start login-->
 		<tiles:insertAttribute name="header" />

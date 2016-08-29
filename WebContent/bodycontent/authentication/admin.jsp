@@ -1,8 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<h2>
+<div class="page-header">
 	${pageContext.request.userPrincipal.name} You are Admin<br>
-	<a href="j_spring_security_logout">Logout</a>
-</h2>
+</div>
 
 <a href="<s:url value="/admin/user"/>">Manage User</a>

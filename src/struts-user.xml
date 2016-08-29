@@ -42,5 +42,17 @@
 			</result>
 			<result name="error">User.EditProfile</result>
 		</action>
+		<action name="follow*" class="springUserAction" method="followUser">
+			<result name="success" type="redirect">
+				<param name="location">/user/findByUserId${user.user_id}</param>
+			</result>
+			<result name="error">User.Info</result>
+		</action>
+		<action name="unfollow*" class="springUserAction" method="unFollowUser">
+			<result name="success" type="redirect">
+				<param name="location">/user/findByUserId${user.user_id}</param>
+			</result>
+			<result name="error">User.Info</result>
+		</action>
 	</package>
 </struts>

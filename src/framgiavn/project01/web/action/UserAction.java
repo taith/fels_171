@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Iterator;
 
 import java.text.ParseException;
 
@@ -22,7 +23,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import framgiavn.project01.web.business.RelationshipBusiness;
 import framgiavn.project01.web.business.UserBusiness;
+import framgiavn.project01.web.model.Relationship;
 import framgiavn.project01.web.model.User;
 import framgiavn.project01.web.ulti.Helpers;
 
@@ -33,8 +36,38 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	// private Logit2 log = Logit2.getInstance(UserAction.class);
 
 	private UserBusiness userBusiness = null;
+	private RelationshipBusiness relationshipBusiness;
+
 	private User user = null;
 	private List<User> userAllList = new ArrayList<User>();
+	private List<User> listFollowingUser = new ArrayList<User>();
+	private List<User> listUserFollower = new ArrayList<User>();
+
+	private boolean followed;
+
+	public boolean isFollowed() {
+		return followed;
+	}
+
+	public void setFollowed(boolean followed) {
+		this.followed = followed;
+	}
+
+	public List<User> getListFollowingUser() {
+		return listFollowingUser;
+	}
+
+	public void setListFollowingUser(List<User> listFollowingUser) {
+		this.listFollowingUser = listFollowingUser;
+	}
+
+	public List<User> getListUserFollower() {
+		return listUserFollower;
+	}
+
+	public void setListUserFollower(List<User> listUserFollower) {
+		this.listUserFollower = listUserFollower;
+	}
 
 	public List<User> getUserAllList() {
 		return userAllList;
@@ -53,6 +86,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	private String password;
 	private String newPassword;
 	private String confirmPassword;
+
+	public void setRelationshipBusiness(RelationshipBusiness relationshipBusiness) {
+		this.relationshipBusiness = relationshipBusiness;
+	}
 
 	public void setUserBusiness(UserBusiness userBusiness) {
 		this.userBusiness = userBusiness;
@@ -121,9 +158,54 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	}
 
 	public String findByUserId() {
+
+		User currentUser = getUserFromSession();
+
 		user = userBusiness.findByUserId(user);
-		if (Helpers.isExist(user))
+
+		/* Declare list following and follower */
+		List<Relationship> listFollowing, listFollower = new ArrayList<Relationship>();
+
+		if (Helpers.isExist(user)) {
+			
+			/* Check if has relationship return true */
+			followed = relationshipBusiness.checkFollowed(
+					currentUser.getUser_id(), user.getUser_id());
+
+			listFollowing = relationshipBusiness.findFollowingById(user);
+
+			/* Add following user to list */
+			Iterator<Relationship> iteratorFollowing = listFollowing.iterator();
+			while (iteratorFollowing.hasNext()) {
+				try {
+					User following = userBusiness.findById(iteratorFollowing.next().getFollowing_id(), false);
+					listFollowingUser.add(following);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					addActionError("Cannot find following user");
+					e.printStackTrace();
+				}
+
+			}
+
+			listFollower = relationshipBusiness.findFollowerById(user);
+
+			/* Add follower user to list */
+			Iterator<Relationship> iteratorFollower = listFollower.iterator();
+			while (iteratorFollower.hasNext()) {
+				try {
+					User follower = userBusiness.findById(iteratorFollower.next().getFollower_id(), false);
+					listUserFollower.add(follower);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					addActionError("Cannot find follower user");
+					e.printStackTrace();
+				}
+			}
+
 			return SUCCESS;
+		}
+
 		return ERROR;
 	}
 
@@ -165,13 +247,13 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 		}
 		return ERROR;
 	}
-	
+
 	public String addNewUser() {
-		
+
 		if (Helpers.isExist(user)) {
-			
+
 			/* Check if email exist then add user */
-			if(Helpers.isEmpty(userBusiness.checkEmailExist(user))) {
+			if (Helpers.isEmpty(userBusiness.checkEmailExist(user))) {
 				userBusiness.addNewUser(user);
 				if (Helpers.isExist(user)) {
 					return SUCCESS;
@@ -180,9 +262,9 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 				addActionError("Email exist");
 				return ERROR;
 			}
-			
-		} else 
-			return INPUT; 
+
+		} else
+			return INPUT;
 		return ERROR;
 	}
 
@@ -260,39 +342,62 @@ public class UserAction extends ActionSupport implements ServletRequestAware {
 	public String homePage() {
 		return SUCCESS;
 	}
-	
+
 	public String userAllPage() {
 		userAllList = userBusiness.listAllUser();
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String activeUser() {
 		userBusiness.activeUser(user);
 		return SUCCESS;
 	}
-	
+
 	public String deactiveUser() {
 		userBusiness.deactiveUser(user);
 		return SUCCESS;
 	}
-	
-	public String adminEditUser() throws Exception {
 
-		User userDB = userBusiness.findById(user.getUser_id(), false);
+	public String adminEditUser() {
+		try {
+			userBusiness.update(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			addActionError("Update falied");
+			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+	public String followUser() {
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		boolean isMatch = passwordEncoder.matches(user.getPassword(), userDB.getPassword());
-		if(isMatch) {
-			if (newPassword.equals(confirmPassword)) {
-				user.setRole(user.getRole());
-				user.setPassword(convertBcryptPassword(newPassword));
-				userBusiness.update(user);
-			} else 
-				addActionError("Password and confirm password not matches");
-		} else
-			addActionError("Wrong current password");
+		User currentUser = getUserFromSession();
+		try {
+			relationshipBusiness.followUser(currentUser.getUser_id(), user.getUser_id());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			addActionError("Follow Failed");
+			e.printStackTrace();
+		}
+
+		return SUCCESS;
+	}
+
+	public String unFollowUser() {
 		
+		User currentUser = getUserFromSession();
+		
+		try {
+			relationshipBusiness.unFollowUser(currentUser.getUser_id(), user.getUser_id());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			addActionError("UnFollow Failed");
+			e.printStackTrace();
+		}
+
 		return SUCCESS;
 	}
 }

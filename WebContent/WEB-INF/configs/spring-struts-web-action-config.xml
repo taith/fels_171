@@ -8,6 +8,7 @@
 	<bean id="springUserAction" class="framgiavn.project01.web.action.UserAction"
 		scope="prototype">
 		<property name="userBusiness" ref="UserBusiness" />
+		<property name="relationshipBusiness" ref="RelationshipBusiness" />
 	</bean>
 	<bean id="springWordAction" class="framgiavn.project01.web.action.WordAction"
 		scope="prototype">

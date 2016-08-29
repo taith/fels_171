@@ -14,7 +14,9 @@
 	</package>
 	<package name="Admin-User" namespace="/admin/user" extends="default-web">
 		<action name="new" class="springUserAction" method="addNewUser">
-			<result name="success">User.All</result>
+			<result name="success" type="redirect">
+				<param name="location">/admin/user</param>
+			</result>
 			<result name="input">User.New</result>
 			<result name="error">User.New</result>
 		</action>

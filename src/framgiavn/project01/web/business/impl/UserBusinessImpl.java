@@ -88,8 +88,15 @@ public class UserBusinessImpl implements UserBusiness {
 	@Override
 	public void update(User user) {
 		try {
-			user.setUpdated_at(new Date());
-			userDAO.update(user);
+			User userDB = userDAO.findById(user.getUser_id(), true);
+			
+			userDB.setName(user.getName());
+			userDB.setEmail(user.getEmail());
+			if(user.getPassword()!=null)
+				userDB.setPassword(user.getPassword());
+			userDB.setRole(user.getRole());
+			userDB.setUpdated_at(new Date());
+			userDAO.update(userDB);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

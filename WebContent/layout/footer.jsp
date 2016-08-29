@@ -1,10 +1,10 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<div id="top-footer"></div>
 
-<div id="bottom-footer">
-	<ul id="quicklink">
-		<li><a href="#" target="_blank"><s:text
-					name="label.footer.aboutUs">About us</s:text></a></li>
-	</ul>
-
-</div>
+<div class="clear-fix" style="padding-top: 30px;"></div>
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted">
+			<a href="#" target="_blank"><s:text name="label.footer.aboutUs">About us</s:text></a>
+		</p>
+	</div>
+</footer>
